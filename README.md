@@ -31,6 +31,8 @@ The Subscribers list from the configuration file must contain IDs of all subscri
 They will be able to use the bot as usual.
 If you get a list of subscribers from a separate source, then write a module yourself to access this source.
 
+### Distribute
+- [Docker Hub](https://hub.docker.com/r/valendovsky/chatgpt-in-telegram)
 
 ### Developers
 - [Valendovsky](https://github.com/valendovsky)
@@ -61,6 +63,9 @@ Project ChatGPTinTelegram is distributed under the MIT license.
 
 В конфигурационном файле приложения в списке SUBSCRIBERS можно перечислить всех подписчиков, которым будет предоставлен отдельный доступ к боту.
 Или самостоятельно добавить модуль, который будет получать этот список из необходимого Вам источника.
+
+### Загрузить
+- [Docker Hub](https://hub.docker.com/r/valendovsky/chatgpt-in-telegram)
 
 ### Разработчики
 - [Valendovsky](https://github.com/valendovsky)
