@@ -162,3 +162,10 @@ cython_debug/
 # My files
 [Ss]ource/
 [Tt]mp/*
+
+# Git
+.gitignore
+.git/
+
+# Docker
+Dockerfile

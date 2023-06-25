@@ -3,7 +3,7 @@
 from typing import Any, Awaitable, Callable, Dict
 
 from aiogram import BaseMiddleware
-from aiogram.types import Message, TelegramObject
+from aiogram.types import Update, TelegramObject
 
 from config import ADMIN_ID, get_access_status, get_subscribers, get_subscribers_status
 
@@ -14,11 +14,11 @@ class AccessMiddleware(BaseMiddleware):
     """
     async def __call__(self,
                        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
-                       event: Message,
+                       event: Update,
                        data: Dict[str, Any]
                        ) -> Any:
         # Проверяем права пользователя на доступ к боту
-        if event.from_user.id == int(ADMIN_ID) \
+        if event.from_user.id == ADMIN_ID \
                 or get_access_status() \
                 or ((event.from_user.id in get_subscribers()) and get_subscribers_status()):
             return await handler(event, data)

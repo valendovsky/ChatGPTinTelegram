@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-# Файл настроек
+"""
+Файл настроек.
+"""
 
 import os
 
@@ -10,11 +12,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TG_API_KEY = os.getenv('TG_API_KEY')
-ADMIN_ID = os.getenv('ADMIN_ID')
+ADMIN_ID: int = int(os.getenv('ADMIN_ID'))
 ACCESS_STATUS = False
 SUBSCRIBERS_STATUS = True
-SUBSCRIBER_1 = os.getenv('SUBSCRIBER_1')
-SUBSCRIBERS = [int(SUBSCRIBER_1)]
+SUBSCRIBERS_LIST = (os.getenv('SUBSCRIBERS_LIST').split(','))
+SUBSCRIBERS = [int(subscriber) for subscriber in SUBSCRIBERS_LIST if SUBSCRIBERS_LIST != ['']] or []
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = 'gpt-3.5-turbo'
 MAX_TOTAL_TOKENS = 4096

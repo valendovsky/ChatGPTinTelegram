@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-# Обработка запросов к ChatGPT
+"""
+Обработка запросов к ChatGPT.
+"""
 
 import openai
 
@@ -21,6 +23,16 @@ async def get_chatgpt_response(message_for_openai: str):
         return TOO_LARGE_CONTEXT
 
     return response.choices[0].message.content
+
+
+async def transcript_voice(file_path):
+    """
+    Транскрибирует голосовую аудио дорожку в текст.
+    """
+    audio_file = open(file_path, 'rb')
+    transcript = openai.Audio.transcribe('whisper-1', audio_file)
+
+    return transcript['text']
 
 
 def _print_name(name):

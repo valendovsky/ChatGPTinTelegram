@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-# Асинхронный Телеграмм-бот на основе aiogram с интегрированным ChatGPT
+# Асинхронный Телеграмм-бот на основе aiogram с интегрированным ChatGPT.
+# Бот принимает голосовые сообщения к ChatGPT.
+# В бот встроена возможность рассылки сообщений по подписчикам.
 
 import asyncio
 import logging
@@ -11,7 +13,7 @@ from aiogram.enums.parse_mode import ParseMode
 
 from config import TG_API_KEY, ADMIN_ID
 from middlewares.access_middleware import AccessMiddleware
-from handlers import main_handlers, chatgpt_handlers
+from handlers import main_handlers, admin_handlers, sender_handlers, chatgpt_handlers
 
 
 async def start_bot(bot: Bot):
@@ -45,10 +47,17 @@ async def main():
     dp.shutdown.register(stop_bot)
 
     # Регистрация мидлвари ограничения доступа пользователей к боту
-    dp.message.middleware.register(AccessMiddleware())
+    dp.message.outer_middleware.register(AccessMiddleware())
 
-    # Регистрация роутеров
-    dp.include_routers(main_handlers.router, chatgpt_handlers.router)
+    # Регистрация роутеров:
+    # Общие хендлеры
+    dp.include_router(main_handlers.router)
+    # Хендлеры администраторов
+    dp.include_router(admin_handlers.router)
+    # Хендлеры админов для рассылок
+    dp.include_router(sender_handlers.router)
+    # Хендлеры взаимодействия с ChatGPT
+    dp.include_router(chatgpt_handlers.router)
 
     try:
         await bot.delete_webhook(drop_pending_updates=True)
